@@ -1,40 +1,34 @@
 class Haki < Formula
   desc "Statically-typed, ARC-managed, general-purpose programming language"
-  homepage "https://haki-lang.dev"
-  version "1.0.0"
+  homepage "https://github.com/iceman5508/haki-lang"
+  version "1.0.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/haki-lang/haki/releases/download/v#{version}/hakic-macos-arm64.tar.gz"
-      sha256 "REPLACE_WITH_ACTUAL_SHA256_MACOS_ARM64"
+      url "https://github.com/iceman5508/haki-lang/releases/download/v#{version}/hakic-macos-arm64.tar.gz"
+      sha256 "91e372b1514f998d17f44906b149681ac8f1d2752cc4a3680c53786c817436f8"
     else
-      url "https://github.com/haki-lang/haki/releases/download/v#{version}/hakic-macos-x86_64.tar.gz"
-      sha256 "REPLACE_WITH_ACTUAL_SHA256_MACOS_X86_64"
+      url "https://github.com/iceman5508/haki-lang/releases/download/v#{version}/hakic-macos-x86_64.tar.gz"
+      sha256 "b0a05a6ce804f1d85b1d49576a76b1d4968def48f8ae63de183b8be2a748fee9"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/haki-lang/haki/releases/download/v#{version}/hakic-linux-arm64.tar.gz"
-      sha256 "REPLACE_WITH_ACTUAL_SHA256_LINUX_ARM64"
+      url "https://github.com/iceman5508/haki-lang/releases/download/v#{version}/hakic-linux-arm64.tar.gz"
+      sha256 "31583fcf0145e5b91c743079c9e4ec28fe3a533ba44a2c39f8511fafb0daf6b0"
     else
-      url "https://github.com/haki-lang/haki/releases/download/v#{version}/hakic-linux-x86_64.tar.gz"
-      sha256 "REPLACE_WITH_ACTUAL_SHA256_LINUX_X86_64"
+      url "https://github.com/iceman5508/haki-lang/releases/download/v#{version}/hakic-linux-x86_64.tar.gz"
+      sha256 "43e0794ed604481c4284626812e88761ba51ae4ae407f9e40c5ae67919606ab4"
     end
   end
-
-  # hakic --emit-c requires gcc or clang
-  # On macOS, Xcode Command Line Tools provides clang
-  # On Linux, gcc is typically already installed
-  # We don't make it a hard dependency since it's usually present
 
   def install
     bin.install "hakic"
   end
 
   def post_install
-    # Create a symlink so 'haki' also works as a command
     (bin/"haki").make_relative_symlink(bin/"hakic") unless (bin/"haki").exist?
   end
 
@@ -44,6 +38,6 @@ class Haki < Formula
           print("Hello from Homebrew!")
       }
     HAKI
-    assert_match "Hello from Homebrew!", shell_output("#{bin}/hakic run #{testpath}/hello.haki --quiet")
+    assert_match "Hello from Homebrew!", shell_output("#{bin}/hakic #{testpath}/hello.haki --emit-c -o #{testpath}/hello_bin --quiet && #{testpath}/hello_bin")
   end
 end
