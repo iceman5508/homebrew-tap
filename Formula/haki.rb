@@ -13,10 +13,13 @@ class Haki < Formula
   def install
     bin.install "hakic"
     bin.install "haki_runtime_core.c"
-    bin.install_symlink "hakic" => "haki"
-    bin.install_symlink "hakic" => "haki-gtk"
-    bin.install_symlink "hakic" => "haki-dom"
-    bin.install_symlink "hakic" => "haki-web"
+    ["haki", "haki-gtk", "haki-dom", "haki-web"].each do |name|
+      (bin/name).write <<~SH
+        #!/bin/bash
+        exec "#{bin}/hakic" "$@"
+      SH
+      chmod 0755, bin/name
+    end
   end
 
   test do
