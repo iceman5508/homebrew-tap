@@ -11,8 +11,8 @@ class Haki < Formula
   end
 
   def install
-    bin.install "haki_release_pkg/hakic" => "hakic"
-    (lib/"haki").install "haki_release_pkg/haki_runtime_core.c"
+    bin.install "hakic"
+    bin.install "haki_runtime_core.c"
     bin.install_symlink "hakic" => "haki"
     bin.install_symlink "hakic" => "haki-gtk"
     bin.install_symlink "hakic" => "haki-dom"
