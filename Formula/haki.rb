@@ -6,7 +6,7 @@ class Haki < Formula
   on_macos do
     on_arm do
       url "https://github.com/iceman5508/haki-lang/releases/download/v5.0.0/haki_v500_macos_arm64.tar.gz"
-      sha256 "622dd96a2e3da7fd342792329afb928156ec2c1b4deda2297c5a5c0355b5a1e2"
+      sha256 "3a6f7007c5adbb9e591b027810544cd66d33ecb81a730281fc14178084694052"
     end
   end
 
